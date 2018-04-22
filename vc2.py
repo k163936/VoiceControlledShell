@@ -147,7 +147,7 @@ def alfareeda(data):
         os.system("ps")
     elif "all processes" in data:
         os.system("ps -A")
-    elif "disc usage"  in data:
+    elif "disk usage"  in data:
         os.system("df")
     elif "file usage" in data:
         os.system("du")
@@ -180,6 +180,12 @@ def alfareeda(data):
 
 time.sleep(2)
 speak("Hello! I am alfareeda")
-while 1:
+flag=True
+while (flag):
     data=record()
     alfareeda(data)
+    speak("Do you want to continue")
+    data=record()
+    if "no" in data:
+        flag=False
+
