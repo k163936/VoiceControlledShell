@@ -27,8 +27,17 @@ def record():
             print("Could not request result".format(e))
 
     return str(data).lower()
-
+def show_ext():
+    ext = ["txt", "mp3", "mp4", "png", "wav", "sh", "docx"]
+    for i in range(0,len(ext)):
+        print("%d:"+ext[i]+"\n",i)
+    speak("select extension")
+    d=record()
+    d=int(d)
+    return ext[d]
 def alfareeda(data):
+
+
     if "how are you" in data:
         speak("I am fine")
     elif "who am i" in data:
@@ -43,11 +52,12 @@ def alfareeda(data):
         speak("tell source")
         s=record()
         speak("tell the type of file")
-        t=record()
+        t=show_ext()
         t.replace(" ","")
-        s=s+t
+        s=s+"."+t
         speak("tell destination")
         d=record()
+        d.replace(" ","")
         os.system("mv "+s+" "+d)
     elif "change directory" in data:
         if "to home" in data:
@@ -61,7 +71,7 @@ def alfareeda(data):
         speak("tell source")
         s=record()
         speak("tell the type of file")
-        t=record()
+        t=show_ext()
         t.replace(" ","")
         s=s+"."+t
         speak("tell destination")
@@ -94,15 +104,15 @@ def alfareeda(data):
         speak("tell the name of the directory")
         t=record()
         os.system("mkdir "+t)
-    elif "remove file" in data:
+    elif "delete file" in data:
         speak("tell the name of file")
         n=record()
         n.replace(" ","")
         speak("tell the type of file")
-        t=record()
+        t=show_ext()
         c=n+"."+t
         os.system("rm "+c)
-    elif "remove folder" in data:
+    elif "delete folder" in data:
         speak("enter the name of the folder")
         n=record()
         n.replace(" ","")
@@ -116,7 +126,7 @@ def alfareeda(data):
         n=record()
         n.replace(" ","")
         speak("tell the type of file")
-        t=record()
+        t=show_ext()
         t.replace(" ","")
         c=n+"."+t
         os.system("head "+c)
@@ -125,11 +135,11 @@ def alfareeda(data):
         n = record()
         n.replace(" ", "")
         speak("tell the type of file")
-        t = record()
+        t = show_ext()
         t.replace(" ", "")
         c = n + "." + t
         os.system("tail " + c)
-    elif "current direcctory" in data:
+    elif "current directory" in data:
         os.system("pwd")
     elif "network status" in data:
         os.system("ifconfig -a")
@@ -137,12 +147,34 @@ def alfareeda(data):
         os.system("ps")
     elif "all processes" in data:
         os.system("ps -A")
-    elif  "details of disk" in data:
+    elif "disc usage"  in data:
         os.system("df")
-    elif "details of file usage" in data:
+    elif "file usage" in data:
         os.system("du")
     elif "login as root user" in data:
         os.system("sudo -i")
+    elif "open browser" in data:
+        os.system("firefox&")
+    elif "give access to file" in data:
+        speak("Tell the name of file")
+        n=record()
+        n.replace(" ","")
+        speak("Tell the type of file")
+        ty=show_ext()
+        ty.replace(" ","")
+        n=n+"."+ty
+        speak("Tell the type of access")
+        t=record()
+        if "execute" in data:
+            os.system("chmod +x "+n)
+        elif "write" in data:
+            os.system("chmod +w "+n)
+        elif "read" in data:
+            os.system("chmod +r "+n)
+        else:
+            os.system("chmod +xwr "+n)
+    else:
+        print("Invalid Command")
 
 
 
