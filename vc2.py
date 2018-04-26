@@ -11,7 +11,7 @@ def speak(audio):
 def record():
     r = sr.Recognizer()
     with sr.Microphone() as source:
-        print("Say!")
+        print("Say some valid command!")
         r.adjust_for_ambient_noise(source)
         audio = r.listen(source)
         with open("microphone-results.wav", "wb") as f:
@@ -35,13 +35,13 @@ def show_ext():
     d=record()
     d=int(d)
     return ext[d]
-def alfareeda(data):
+def Natasha(data):
 
 
     if "how are you" in data:
         speak("I am fine")
     elif "who am i" in data:
-        speak("whiteknight")
+        speak("user")
     elif "what time is it" in data:
         os.system("date")
     elif "list files" in data:
@@ -80,14 +80,10 @@ def alfareeda(data):
     elif "copy folder" in data:
         speak("tell source")
         s=record()
-        speak("tell the type of file")
-        t=record()
-        t.replace(" ","")
-        s=s+t
         speak("tell destination")
         d=record()
         os.system("cp -r "+s+" "+d)
-    elif "what is the kernel version" in data:
+    elif "kernel version" in data:
         os.system("uname -r")
     elif "exit" in data:
         os.system("quit()")
@@ -173,19 +169,73 @@ def alfareeda(data):
             os.system("chmod +r "+n)
         else:
             os.system("chmod +xwr "+n)
+    elif "add user" in data:
+        speak("tell me user name")
+        n = record()
+        speak("are you sure to create " + n + " user")
+        if ("yes"):
+            os.system("sudo useradd " + n)
+        else:
+            speak("can't create user")
+    elif "add group" in data:
+        speak("tell me groub name")
+        n = record()
+        speak("are you sure to add " + n + "  group")
+        if ("yes"):
+            os.system("sudo addgroup " + n)
+        else:
+            speak("can't create group")
+    elif "manual" in data:
+        speak("manual of")
+        n = record()
+        os.system("man " + n)
+    elif "delete user" in data:
+        speak("tell me user name")
+        n = record()
+        speak("are you sure to delete " + n + " user")
+        if ("yes"):
+            os.system("sudo deluser " + n)
+        else:
+            speak("can't delete user")
+    elif "show content" in data:
+        speak("tell the name of file")
+        n = record()
+        n.replace(" ", "")
+        speak("tell the type of file")
+        t = show_ext()
+        t.replace(" ", "")
+        c = n + "." + t
+        os.system("cat " + c)
+    elif "rename file" in data:
+        speak("tell filename")
+        s = record()
+        speak("tell the type of file")
+        t = show_ext()
+        t.replace(" ", "")
+        s = s + "." + t
+        speak("tell newname")
+        d = record()
+        speak("tell the type of file")
+        t = show_ext()
+        d.replace(" ", "")
+        d = d + "." + t
+        os.system("mv " + s + " " + d)
+    elif "open text editor" in data:
+        os.system("gedit&")
+    elif "update" in data:
+        os.system("sudo apt update")
+    elif "upgrade" in data:
+        os.system("sudo apt upgrade")
     else:
         print("Invalid Command")
 
 
 
 time.sleep(2)
-speak("Hello! I am alfareeda")
+speak("Hello! I am Natasha")
 flag=True
-while (flag):
+while (1):
     data=record()
-    alfareeda(data)
-    speak("Do you want to continue")
-    data=record()
-    if "no" in data:
-        flag=False
+    Natasha(data)
+
 
