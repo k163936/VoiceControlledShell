@@ -6,10 +6,10 @@ towards that disruptive innovation.This eases the user for to controll the linux
 This assistant is developed using Python.
 
 ## Dependencies
-*gTTS (google text to speech)
-*Speech Recognition
-*PyAudio
-*OS (python's library to interact with the operating system)
+* gTTS (google text to speech)
+* Speech Recognition
+* PyAudio
+* OS (python's library to interact with the operating system)
 
 ## Mechanism
 The code is based on three main modules; speak, record and assistant.
@@ -17,7 +17,7 @@ The code is based on three main modules; speak, record and assistant.
 ### Speak
 This module takes a string as a parameter and converts the string into .mp3 file which is then
 played by 'mpg321' command in linux.
-code()
+
 def speak(audio):
     print(audio)
     gt=gTTS(text=audio,lang='en')
@@ -28,7 +28,7 @@ def speak(audio):
 This module uses the Speech Recognition library of python and takes voice input from the user and convert
 it into a string. This input is bounded by exception handling which plays its part if an invalid input(voice with
 too much noise or no voice) is occured.
-code()
+
 def record():
     r = sr.Recognizer()
     with sr.Microphone() as source:
@@ -51,10 +51,9 @@ def record():
 
 ### Assistant
 This module is the brain of the assistant which tells the assistant what task to perform given a relevant input.
-code()
+
+code(
 def Natasha(data):
-
-
     if "how are you" in data:
         speak("I am fine")
     elif "who am i" in data:
@@ -245,4 +244,5 @@ def Natasha(data):
         os.system("sudo apt upgrade")
     else:
         print("Invalid Command")
+        )
 
