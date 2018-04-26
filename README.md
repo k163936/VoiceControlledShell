@@ -18,41 +18,40 @@ The code is based on three main modules; speak, record and assistant.
 This module takes a string as a parameter and converts the string into .mp3 file which is then
 played by 'mpg321' command in linux.
 
-def speak(audio):
-    print(audio)
-    gt=gTTS(text=audio,lang='en')
-    gt.save("audio.mp3")
-    os.system("mpg321 audio.mp3")
+    def speak(audio):
+        print(audio)
+        gt=gTTS(text=audio,lang='en')
+        gt.save("audio.mp3")
+        os.system("mpg321 audio.mp3")
 
 ### Record
 This module uses the Speech Recognition library of python and takes voice input from the user and convert
 it into a string. This input is bounded by exception handling which plays its part if an invalid input(voice with
 too much noise or no voice) is occured.
 
-def record():
-    r = sr.Recognizer()
-    with sr.Microphone() as source:
-        print("Say some valid command!")
-        r.adjust_for_ambient_noise(source)
-        audio = r.listen(source)
-        with open("microphone-results.wav", "wb") as f:
-            f.write(audio.get_wav_data())
+    def record():
+        r = sr.Recognizer()
+        with sr.Microphone() as source:
+            print("Say some valid command!")
+            r.adjust_for_ambient_noise(source)
+            audio = r.listen(source)
+            with open("microphone-results.wav", "wb") as f:
+                f.write(audio.get_wav_data())
 
-        data = ""
-        try:
-            data = r.recognize_google(audio)
-            print(data)
-        except sr.UnknownValueError:
-            print("Command not recognized")
-        except sr.RequestError as e:
-            print("Could not request result".format(e))
+            data = ""
+            try:
+                data = r.recognize_google(audio)
+                print(data)
+            except sr.UnknownValueError:
+                print("Command not recognized")
+            except sr.RequestError as e:
+                print("Could not request result".format(e))
 
-    return str(data).lower()
+        return str(data).lower()
 
 ### Assistant
 This module is the brain of the assistant which tells the assistant what task to perform given a relevant input.
-
-code(
+code()
 def Natasha(data):
     if "how are you" in data:
         speak("I am fine")
@@ -244,5 +243,7 @@ def Natasha(data):
         os.system("sudo apt upgrade")
     else:
         print("Invalid Command")
-        )
 
+
+### CheatSheet
+The cheatsheet.docx file gives the description of available list of commands.
